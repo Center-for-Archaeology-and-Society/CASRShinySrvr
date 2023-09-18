@@ -1,0 +1,63 @@
+version: '1'
+services:
+  websrvr:
+    build: websrvr/docker
+    ports:
+      - "3838:80"
+    depends_on:
+      - archaeodash
+      - archaeodashbeta
+      - dataentry
+      - boxes
+    volumes:
+      - "./websrvr/:/usr/local/apache2/shiny"
+    working_dir: "/usr/local/apache2/shiny"
+    restart: unless-stopped
+
+  archaeodash:
+    build: Archaeodash/docker
+    ports:
+      - "13838:3838"
+    restart: unless-stopped
+    user: "root"
+    volumes:
+      - "./Archaeodash:/srv/shiny-server/"
+    working_dir: "/srv/shiny-server"
+
+  archaeodashbeta:
+    build: Archaeodashbeta/docker
+    ports:
+      - "23838:3838"
+    restart: unless-stopped
+    user: "root"
+    volumes:
+      - "./Archaeodashbeta:/srv/shiny-server/"
+    working_dir:  "/srv/shiny-server"
+
+  dataentry:
+    build: ShinyDataEntry/docker
+    ports:
+      - "33838:3838"
+    restart: unless-stopped
+    user: "root"
+    volumes:
+      - "./ShinyDataEntry:/srv/shiny-server/"
+    working_dir:  "/srv/shiny-server"
+
+  boxes:
+    build: CAScontainerUpdater/docker
+    ports:
+      - "43838:3838"
+    restart: unless-stopped
+    user: "root"
+    volumes:
+      - "./CAScontainerUpdater:/srv/shiny-server/"
+    working_dir:  "/srv/shiny-server"
+
+volumes:
+  Archaeodash:  
+  Archaeodashbeta:
+  websrvr:
+  ShinyDataEntry:
+  CAScontainerUpdater:
+
