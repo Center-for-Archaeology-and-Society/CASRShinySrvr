@@ -1,19 +1,5 @@
 version: '1'
 services:
-  websrvr:
-    image: nginx
-    ports:
-      - "3838:3838"
-    depends_on:
-      - archaeodash
-      - archaeodashbeta
-      - dataentry
-      - boxes
-    volumes:
-      - "./websrvr/docker:/var/www/html"
-      - "./websrvr/docker/conf:/usr/local/nginx/conf"
-    working_dir: "/usr/local/nginx/conf"
-    restart: unless-stopped
 
   archaeodash:
     build: Archaeodash/docker
@@ -58,8 +44,6 @@ services:
 volumes:
   Archaeodash:  
   Archaeodashbeta:
-  websrvr:
   ShinyDataEntry:
   CAScontainerUpdater:
-networks:
-  privatenet:
+
