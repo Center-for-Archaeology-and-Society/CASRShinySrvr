@@ -3,7 +3,7 @@ services:
   websrvr:
     build: websrvr/docker
     ports:
-      - "3838:80"
+      - "8787:80"
     depends_on:
       - archaeodash
       - archaeodashbeta
